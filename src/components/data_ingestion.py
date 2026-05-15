@@ -4,7 +4,12 @@ from src.exception import CustomException
 from src.logger import logging
 
 import pandas as pd
+
 from sklearn.model_selection import train_test_split
+
+from src.components.data_transformation import DataTransformation
+from src.components.data_transformation import DataTransformationConfig
+
 from dataclasses import dataclass #
 
 @dataclass ## Decorator to automatically generate special methods like __init__() and __repr__() for the class
@@ -62,4 +67,10 @@ class DataIngestion:
         
 if __name__ == "__main__":
     obj = DataIngestion() # Create an instance of the DataIngestion class.
-    obj.initiate_data_ingestion() # Call the initiate_data_ingestion method to start the data ingestion process.
+    train_data,test_data = obj.initiate_data_ingestion() # Call the initiate_data_ingestion method to perform the data ingestion process and obtain the file paths of the training and testing datasets.    
+
+    data_transformation = DataTransformation() 
+     # Create an instance of the DataTransformation class.
+    data_transformation.initiate_data_transformation(train_data, test_data) 
+    # Call the initiate_data_transformation method to perform data
+    #transformation on the training and testing datasets using the file paths obtained from the data ingestion process.   
