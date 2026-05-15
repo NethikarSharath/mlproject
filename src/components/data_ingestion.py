@@ -10,6 +10,9 @@ from sklearn.model_selection import train_test_split
 from src.components.data_transformation import DataTransformation
 from src.components.data_transformation import DataTransformationConfig
 
+from src.components.model_trainer import ModelTrainer
+from src.components.model_trainer import ModelTrainerConfig
+
 from dataclasses import dataclass #
 
 @dataclass ## Decorator to automatically generate special methods like __init__() and __repr__() for the class
@@ -28,7 +31,7 @@ class DataIngestion:
     def initiate_data_ingestion(self):
         logging.info("Entered the data ingestion method or component")
         try:
-            df = pd.read_csv(os.path.join("notebooK\data\stud.csv")) 
+            df = pd.read_csv(os.path.join(r"notebooK\data\stud.csv"))
             # Read the dataset from a specified path and store it in a DataFrame called df. 
             # It will read the CSV file located at "notebook/data/gemstone.csv", or any other path where the dataset is stored.
             logging.info("Read the dataset as dataframe")
@@ -71,6 +74,11 @@ if __name__ == "__main__":
 
     data_transformation = DataTransformation() 
      # Create an instance of the DataTransformation class.
-    data_transformation.initiate_data_transformation(train_data, test_data) 
+    train_arr,test_arr,_= data_transformation.initiate_data_transformation(train_data, test_data) 
     # Call the initiate_data_transformation method to perform data
     #transformation on the training and testing datasets using the file paths obtained from the data ingestion process.   
+
+    model_trainer = ModelTrainer() 
+    # Create an instance of the ModelTrainer class.
+    print(model_trainer.initiate_model_trainer(train_arr, test_arr))
+
